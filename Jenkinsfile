@@ -1,13 +1,13 @@
 pipeline {
    agent {
       dockerfile {
-         filename 'Dockerfile-Build'
+         filename 'Jenkins/Dockerfile-Build'
          args '-u root'
       }
    }
 
    environment {
-      GITHUB_TOKEN          = credentials('github-token')
+      GITHUB_TOKEN          = credentials('Jenkins-User')
       AWS_REGION            = "eu-west-2"
       AWS_DEFAULT_REGION    = "eu-west-2"
       PROJECT_NAME          = "ALB-DB"
@@ -38,10 +38,10 @@ pipeline {
       stage('Deploy') {
          parallel {
             stage('Development') {
-               when { branch 'develop' }
+               when { branch 'master' }
                steps {
                   script {
-                     sh '(cd ${WORKSPACE}; TARGET_ENVIRONMENT=dev ./deploy.sh )'
+                     sh '(cd ${WORKSPACE}; ./Jenkins/deploy.sh )'
                   }
                }
             }
