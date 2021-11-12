@@ -9,7 +9,9 @@ pipeline {
 
       stage("deploy"){
          steps{
-            echo 'deploy'
+            script {
+               sh '(cd ${WORKSPACE}; ./Jenkins/deploy.sh )'     
+            }
          }
       }
    }
