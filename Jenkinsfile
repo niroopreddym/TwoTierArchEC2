@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+   agent { docker { image 'golang' } }
    environment {
       GITHUB_TOKEN          = credentials('Jenkins-User')
       AWS_REGION            = "eu-west-2"
@@ -8,11 +8,11 @@ pipeline {
    }
       
    stages {
-      stage('init'){
-         steps{
-            echo 'test'
-         }
-      }
+      stage('build') {
+            steps {
+                sh 'go version'
+            }
+        }
       stage('Clean') {
          steps {
             sh '(cd ${WORKSPACE}/src; make clean;)'
