@@ -1,4 +1,5 @@
 pipeline {
+   agent any
    environment {
       GITHUB_TOKEN          = credentials('Jenkins-User')
       AWS_REGION            = "eu-west-2"
@@ -7,6 +8,11 @@ pipeline {
    }
       
    stages {
+      stage('init'){
+         steps{
+            echo 'test'
+         }
+      }
       stage('Clean') {
          steps {
             sh '(cd ${WORKSPACE}/src; make clean;)'
