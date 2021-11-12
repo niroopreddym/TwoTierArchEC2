@@ -10,9 +10,7 @@ pipeline {
       stage("deploy"){
          steps{
             script {
-               sh '(cd ${WORKSPACE};
-                chmod 777 ./Jenkins/deploy.sh; 
-                ./Jenkins/deploy.sh )'     
+               sh '(cd ${WORKSPACE};chmod 777 ./Jenkins/deploy.sh;  ./Jenkins/deploy.sh )'     
             }
          }
       }
