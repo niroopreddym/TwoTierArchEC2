@@ -14,16 +14,16 @@ echo "am a jenkins script file"
 ##
 # Read parameters from cfn.json
 ##
-cat .github/workflows/scripts/cfn.json
+cat ./Jenkins/cfn.json
 
-ROLE_ARN=$(jq -r ".targetAccountRoleArn" < .github/workflows/scripts/cfn.json)
-ARTIFACT_NAME=$(jq -r ".artifactsBucket" < .github/workflows/scripts/cfn.json)
-PREFIX=$(jq -r ".prefix" < .github/workflows/scripts/cfn.json)
-TARGET_ENVIRONMENT=$(jq -r ".environment" < .github/workflows/scripts/cfn.json)
-PROFILE=$(jq -r ".profile" < .github/workflows/scripts/cfn.json)
-ACCESS_KEY=$(jq -r ".access_key" < .github/workflows/scripts/cfn.json)
-SECRET_KEY=$(jq -r ".secret_key" < .github/workflows/scripts/cfn.json)
-SNSBUCKETNAME=$(jq -r ".s3SnsBucketName" < .github/workflows/scripts/cfn.json)
+ROLE_ARN=$(jq -r ".targetAccountRoleArn" < ./Jenkins/cfn.json)
+ARTIFACT_NAME=$(jq -r ".artifactsBucket" < ./Jenkins/cfn.json)
+PREFIX=$(jq -r ".prefix" < ./Jenkins/cfn.json)
+TARGET_ENVIRONMENT=$(jq -r ".environment" < ./Jenkins/cfn.json)
+PROFILE=$(jq -r ".profile" < ./Jenkins/cfn.json)
+ACCESS_KEY=$(jq -r ".access_key" < ./Jenkins/cfn.json)
+SECRET_KEY=$(jq -r ".secret_key" < ./Jenkins/cfn.json)
+SNSBUCKETNAME=$(jq -r ".s3SnsBucketName" < ./Jenkins/cfn.json)
 
 
 
