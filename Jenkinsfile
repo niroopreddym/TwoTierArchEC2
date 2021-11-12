@@ -1,5 +1,10 @@
 pipeline {
-   agent any
+   agent {
+      dockerfile {
+         filename './Jenkins/Dockerfile-Build'
+         args '-u root'
+      }
+   }
    environment {
       Access_Key = credentials('Access_Key')
       Secret_Key = credentials('Secret_Key')
