@@ -10,7 +10,7 @@ pipeline {
       stage("deploy"){
          steps{
             script {
-               sh '(cd ${WORKSPACE}; ./Jenkins/deploy.sh )'     
+               sh '(cd ${WORKSPACE}; ls -la ; ./Jenkins/deploy.sh )'     
             }
          }
       }
