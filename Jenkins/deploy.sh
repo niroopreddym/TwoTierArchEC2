@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
-##
-# Get parameters for stack deployment based on target environment
-##
-echo "am a jenkins script file"
-
-#!/usr/bin/env bash
-
 # set -e
 
 ##
