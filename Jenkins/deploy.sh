@@ -5,7 +5,8 @@ set -e
 ##
 # Get parameters for stack deployment based on target environment
 ##
-echo "${TARGET_ENVIRONMENT}"
+echo "am a jenkins script file"
+# echo "${TARGET_ENVIRONMENT}"
 # make prepare-environment ENV="${TARGET_ENVIRONMENT}"
 
 # ##
