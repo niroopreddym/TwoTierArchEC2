@@ -5,6 +5,7 @@
 ##
 # Read parameters from cfn.json
 ##
+sudo apt-get install jq
 cat ./Jenkins/cfn.json
 
 ROLE_ARN=$(jq -r ".targetAccountRoleArn" < ./Jenkins/cfn.json)
