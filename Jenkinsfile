@@ -1,11 +1,4 @@
 pipeline {
-   agent {
-      dockerfile {
-         filename 'Jenkins/Dockerfile-Build'
-         args '-u root'
-      }
-   }
-
    environment {
       GITHUB_TOKEN          = credentials('Jenkins-User')
       AWS_REGION            = "eu-west-2"
