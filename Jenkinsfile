@@ -47,10 +47,4 @@ pipeline {
          }
       }
    }
-   //Cleanup
-   post {
-      cleanup {
-         cleanWs()
-      }
-   }
 }
