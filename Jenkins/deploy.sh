@@ -41,6 +41,7 @@ export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 # Package infrastructure
 ##
 
+cd "${WORKSPACE}"
 aws cloudformation package \
     --template-file infrastructure/aws-stacks/vpcstack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
@@ -57,9 +58,9 @@ aws cloudformation package \
     --output-template-file apistack_release.yaml
 
 aws cloudformation package \
---template-file infrastructure/aws-stacks/masterstack.yml \
---s3-bucket "${ARTIFACT_NAME}" \
---output-template-file masterstack_release.yaml
+    --template-file infrastructure/aws-stacks/masterstack.yml \
+    --s3-bucket "${ARTIFACT_NAME}" \
+    --output-template-file masterstack_release.yaml
 
 ls -la
 
