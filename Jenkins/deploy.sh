@@ -67,8 +67,9 @@ ls -la
 ##
 # Deploy infrastructure stack.
 ##
+cd "${WORKSPACE}"
 aws cloudformation deploy \
-    --template-file masterstack_release.yaml \
+    --template-file ./masterstack_release.yaml \
     --stack-name "${TARGET_ENVIRONMENT}"-"${PREFIX}"-master \
 	--s3-bucket "${ARTIFACT_NAME}" \
 	--capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM \
