@@ -64,9 +64,7 @@ aws cloudformation package \
 
 cd "${GITHUB_WORKSPACE}"
 
-aws s3 cp release/vpcstack_release.yaml s3://"${ARTIFACT_NAME}"/vpcstack_release.yaml
-aws s3 cp release/loadbalancer_release.yaml s3://"${ARTIFACT_NAME}"/loadbalancer_release.yaml
-aws s3 cp release/apistack_release.yaml s3://"${ARTIFACT_NAME}"/apistack_release.yaml
+ls -la
 
 ##
 # Deploy infrastructure stack.
