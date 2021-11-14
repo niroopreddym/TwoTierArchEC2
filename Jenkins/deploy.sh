@@ -41,25 +41,23 @@ export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 # Package infrastructure
 ##
 
-cd "infrastructure\aws-stacks"
-
 aws cloudformation package \
-    --template-file vpcstack.yml \
+    --template-file infrastructure/aws-stacks/vpcstack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
     --output-template-file vpcstack_release.yaml
 
 aws cloudformation package \
-    --template-file loadbalancer.yml \
+    --template-file infrastructure/aws-stacks/loadbalancer.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
     --output-template-file loadbalancer_release.yaml
 
 aws cloudformation package \
-    --template-file apistack.yml \
+    --template-file infrastructure/aws-stacks/apistack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
     --output-template-file apistack_release.yaml
 
 aws cloudformation package \
---template-file masterstack.yml \
+--template-file infrastructure/aws-stacks/masterstack.yml \
 --s3-bucket "${ARTIFACT_NAME}" \
 --output-template-file masterstack_release.yaml
 
