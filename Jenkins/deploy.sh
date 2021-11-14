@@ -62,10 +62,10 @@ aws cloudformation package \
     --s3-bucket "${ARTIFACT_NAME}" \
     --output-template-file infrastructure/aws-stacks/masterstack_release.yaml
 
-aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ArtifactBucket}/vpcstack_release.yaml
-aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ArtifactBucket}/loadbalancer_release.yaml
-aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ArtifactBucket}/apistack_release.yaml
-aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ArtifactBucket}/masterstack_release.yaml
+aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ARTIFACT_NAME}/vpcstack_release.yaml
+aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ARTIFACT_NAME}/loadbalancer_release.yaml
+aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ARTIFACT_NAME}/apistack_release.yaml
+aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://${ARTIFACT_NAME}/masterstack_release.yaml
 
 ##
 # Deploy infrastructure stack.
