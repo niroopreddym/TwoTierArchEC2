@@ -40,6 +40,10 @@ export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 ##
 # Package infrastructure
 ##
+ls -la
+
+ls -la ${GITHUB_WORKSPACE}
+
 cd "${GITHUB_WORKSPACE}"/infrastructure
 
 aws cloudformation package \
