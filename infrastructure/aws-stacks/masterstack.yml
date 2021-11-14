@@ -21,13 +21,17 @@ Parameters:
 
   KeyName:
     Type: String
-    Description: The unique prefix following the environment name that the pipleine is deployed to  
+    Description: The unique prefix following the environment name that the pipleine is deployed to
   
+  ArtifactBucket:
+    Type: String
+    Description: The unique prefix following the environment name that the pipleine is deployed to
+
 Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: './vpcstack_release.yaml'
+      TemplateURL: !Sub  's3://{ArtifactBucket}/vpcstack_release.yaml'
       Parameters:
         Prefix: !Ref Prefix
         Environment: !Ref Environment

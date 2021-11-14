@@ -62,7 +62,7 @@ aws cloudformation package \
     --s3-bucket "${ARTIFACT_NAME}" \
     --output-template-file infrastructure/aws-stacks/masterstack_release.yaml
 
-ls -la
+aws s3 cp infrastructure/aws-stacks/vpcstack_release.yaml s3://{ArtifactBucket}/vpcstack_release.yaml
 
 ##
 # Deploy infrastructure stack.
@@ -77,5 +77,6 @@ aws cloudformation deploy \
 	--parameter-overrides \
     Prefix="${PREFIX}" \
     Environment="${TARGET_ENVIRONMENT}" \
-    KeyName="${KEYNAME}"
+    KeyName="${KEYNAME}" \
+    ArtifactBucket="${ARTIFACT_NAME}"
     
