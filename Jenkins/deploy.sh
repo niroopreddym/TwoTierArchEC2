@@ -16,6 +16,7 @@ PROFILE=$(jq -r ".profile" < ./Jenkins/cfn.json)
 ACCESS_KEY=$(jq -r ".access_key" < ./Jenkins/cfn.json)
 SECRET_KEY=$(jq -r ".secret_key" < ./Jenkins/cfn.json)
 SNSBUCKETNAME=$(jq -r ".s3SnsBucketName" < ./Jenkins/cfn.json)
+KEYNAME = $(jq -r ".keyName" < ./Jenkins/cfn.json)
 
 
 
@@ -42,18 +43,36 @@ export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 cd "${GITHUB_WORKSPACE}"/infrastructure
 
 aws cloudformation package \
-    --template-file aws-stacks/s3updates-stack.yml \
+    --template-file vpcstack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
-    --output-template-file aws-stacks/s3updates-stack_release.yaml
+    --output-template-file release/vpcstack_release.yaml
+
+aws cloudformation package \
+    --template-file loadbalancer.yml \
+    --s3-bucket "${ARTIFACT_NAME}" \
+    --output-template-file release/loadbalancer_release.yaml
+
+aws cloudformation package \
+    --template-file apistack.yml \
+    --s3-bucket "${ARTIFACT_NAME}" \
+    --output-template-file release/apistack_release.yaml
+
+aws cloudformation package \
+--template-file masterstack.yml \
+--s3-bucket "${ARTIFACT_NAME}" \
+--output-template-file release/masterstack_release.yaml
 
 cd "${GITHUB_WORKSPACE}"
 
+aws s3 cp release/vpcstack_release.yaml s3://"${ARTIFACT_NAME}"/release/vpcstack_release.yaml
+aws s3 cp release/loadbalancer_release.yaml s3://"${ARTIFACT_NAME}"/release/loadbalancer_release.yaml
+aws s3 cp release/apistack_release.yaml s3://"${ARTIFACT_NAME}"/release/apistack_release.yaml
 
 ##
 # Deploy infrastructure stack.
 ##
 aws cloudformation deploy \
-    --template-file "${GITHUB_WORKSPACE}"/infrastructure/aws-stacks/s3updates-stack_release.yaml \
+    --template-file "${GITHUB_WORKSPACE}"/infrastructure/release/s3updates-stack_release.yaml \
     --stack-name "${TARGET_ENVIRONMENT}"-"${PREFIX}"-event-stack\
 	--s3-bucket "${ARTIFACT_NAME}" \
 	--capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM \
@@ -62,4 +81,15 @@ aws cloudformation deploy \
 	Environment="${TARGET_ENVIRONMENT}" \
     Prefix="${PREFIX}" \
     BucketName="${SNSBUCKETNAME}" \
+
+aws cloudformation deploy \
+    --template-file "${GITHUB_WORKSPACE}"/infrastructure/release/s3updates-stack_release.yaml \
+    --stack-name "${TARGET_ENVIRONMENT}"-"${PREFIX}"-master \
+	--s3-bucket "${ARTIFACT_NAME}" \
+	--capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM \
+    --no-fail-on-empty-changeset \
+	--parameter-overrides \
+    Prefix="${PREFIX}" \
+    Environment="${TARGET_ENVIRONMENT}" \
+    KeyName="${KEYNAME}"
     
