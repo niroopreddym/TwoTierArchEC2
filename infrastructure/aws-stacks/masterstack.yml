@@ -31,7 +31,7 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub  's3://{ArtifactBucket}/vpcstack_release.yaml'
+      TemplateURL: !Sub 's3://nirooptestbucket/vpcstack_release.yaml'
       Parameters:
         Prefix: !Ref Prefix
         Environment: !Ref Environment
