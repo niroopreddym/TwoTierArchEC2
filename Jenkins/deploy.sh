@@ -40,11 +40,8 @@ export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
 ##
 # Package infrastructure
 ##
-ls -la
 
-ls -la ${GITHUB_WORKSPACE}
-
-cd "${GITHUB_WORKSPACE}"/infrastructure
+cd "infrastructure\aws-stacks"
 
 aws cloudformation package \
     --template-file vpcstack.yml \
@@ -66,15 +63,13 @@ aws cloudformation package \
 --s3-bucket "${ARTIFACT_NAME}" \
 --output-template-file masterstack_release.yaml
 
-cd "${GITHUB_WORKSPACE}"
-
 ls -la
 
 ##
 # Deploy infrastructure stack.
 ##
 aws cloudformation deploy \
-    --template-file "${GITHUB_WORKSPACE}"/infrastructure/aws-stacks/masterstack_release.yaml \
+    --template-file masterstack_release.yaml \
     --stack-name "${TARGET_ENVIRONMENT}"-"${PREFIX}"-master \
 	--s3-bucket "${ARTIFACT_NAME}" \
 	--capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM \
