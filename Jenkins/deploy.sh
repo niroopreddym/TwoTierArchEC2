@@ -45,22 +45,22 @@ cd "${WORKSPACE}"
 aws cloudformation package \
     --template-file infrastructure/aws-stacks/vpcstack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
-    --output-template-file vpcstack_release.yaml
+    --output-template-file infrastructure/aws-stacks/vpcstack_release.yaml
 
 aws cloudformation package \
     --template-file infrastructure/aws-stacks/loadbalancer.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
-    --output-template-file loadbalancer_release.yaml
+    --output-template-file infrastructure/aws-stacks/loadbalancer_release.yaml
 
 aws cloudformation package \
     --template-file infrastructure/aws-stacks/apistack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
-    --output-template-file apistack_release.yaml
+    --output-template-file infrastructure/aws-stacks/apistack_release.yaml
 
 aws cloudformation package \
     --template-file infrastructure/aws-stacks/masterstack.yml \
     --s3-bucket "${ARTIFACT_NAME}" \
-    --output-template-file masterstack_release.yaml
+    --output-template-file infrastructure/aws-stacks/masterstack_release.yaml
 
 ls -la
 
@@ -69,7 +69,7 @@ ls -la
 ##
 cd "${WORKSPACE}"
 aws cloudformation deploy \
-    --template-file ./masterstack_release.yaml \
+    --template-file infrastructure/aws-stacks/masterstack_release.yaml \
     --stack-name "${TARGET_ENVIRONMENT}"-"${PREFIX}"-master \
 	--s3-bucket "${ARTIFACT_NAME}" \
 	--capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM \
